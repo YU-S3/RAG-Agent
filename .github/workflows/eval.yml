@@ -20,6 +20,9 @@ jobs:
       - name: Compile check
         run: python -m compileall app tests eval
       - name: Run unit checks
+        env:
+          PYTHONUTF8: "1"
+          PYTHONIOENCODING: "utf-8"
         run: |
           python -m tests.smoke_check
           python -m tests.embedder_endpoint_check
