@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meta Agent Console</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/web/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="left-nav">
+      <div class="brand">
+        <i data-lucide="bot"></i>
+        Meta Agent
+      </div>
+      <div class="nav-btn-group">
+        <button class="tab-btn active" data-tab="chat">
+          <i data-lucide="message-square"></i>
+          对话
+        </button>
+        <button class="tab-btn" data-tab="dashboard">
+          <i data-lucide="layout-dashboard"></i>
+          仪表盘
+        </button>
+        <button class="tab-btn" data-tab="knowledge">
+          <i data-lucide="book-open"></i>
+          知识库
+        </button>
+      </div>
+      <div class="session-side">
+        <div class="session-head">
+          <span>历史会话</span>
+          <button id="newSessionBtn">
+            <i data-lucide="plus"></i>
+            新建
+          </button>
+        </div>
+        <div id="sessionList" class="session-list"></div>
+      </div>
+    </aside>
+    <main class="main-area">
+      <section class="tab-panel active" id="tab-chat">
+        <div class="top-controls">
+          <input id="sessionId" placeholder="Session ID">
+          <input id="userId" placeholder="User ID">
+          <label class="check-row"><input id="useMemory" type="checkbox"> 开启记忆 (Memory)</label>
+          <label class="check-row">Top K <input id="topK" type="number" min="1" max="20" value="4"></label>
+        </div>
+        <div id="chatMessages" class="chat-stream"></div>
+        <div class="chat-composer">
+          <textarea id="chatInput" placeholder="请输入你的问题，按回车发送..."></textarea>
+          <button id="sendBtn">
+            <i data-lucide="send"></i>
+            发送
+          </button>
+        </div>
+      </section>
+      <section class="tab-panel" id="tab-dashboard">
+        <div class="dashboard-head">
+          <h2>
+            <i data-lucide="bar-chart-2"></i>
+            运行趋势
+          </h2>
+          <button id="refreshDashboard">
+            <i data-lucide="refresh-cw"></i>
+            刷新数据
+          </button>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi">
+            <div class="k">总请求数 <i data-lucide="activity" class="icon-cyan"></i></div>
+            <div class="v" id="kpiRequests">0</div>
+          </div>
+          <div class="kpi">
+            <div class="k">错误数 <i data-lucide="alert-triangle" class="icon-red"></i></div>
+            <div class="v" id="kpiErrors">0</div>
+          </div>
+          <div class="kpi">
+            <div class="k">平均延迟 <i data-lucide="clock" class="icon-green"></i></div>
+            <div class="v" id="kpiLatency">0ms</div>
+          </div>
+          <div class="kpi">
+            <div class="k">审计拒绝 <i data-lucide="shield-alert" class="icon-amber"></i></div>
+            <div class="v" id="kpiDenied">0</div>
+          </div>
+        </div>
+        <canvas id="trendCanvas" width="1100" height="260"></canvas>
+        <pre id="dashboardRaw" class="raw"></pre>
+      </section>
+      <section class="tab-panel" id="tab-knowledge">
+        <div class="dashboard-head">
+          <h2>
+            <i data-lucide="database"></i>
+            知识库文档管理
+          </h2>
+          <button id="refreshDocsBtn">
+            <i data-lucide="refresh-cw"></i>
+            刷新文档
+          </button>
+        </div>
+        <div class="form-card">
+          <div class="form-group">
+            <label for="docSource">数据源 (Source)</label>
+            <input id="docSource" placeholder="输入来源 (例如: manual, api-docs)" value="manual">
+          </div>
+          <div class="form-group">
+            <label for="docFiles">上传文档文件（txt/md/markdown/pdf/doc/docx，可多选）</label>
+            <input id="docFiles" type="file" multiple accept=".txt,.md,.markdown,.pdf,.doc,.docx">
+          </div>
+          <button id="uploadDocBtn">
+            <i data-lucide="upload-cloud"></i>
+            上传并导入知识库
+          </button>
+          <div id="uploadProgressWrap" class="upload-progress hidden">
+            <div class="upload-progress-head">
+              <span id="uploadStageText">等待上传</span>
+              <span id="uploadPercentText">0%</span>
+            </div>
+            <div class="upload-progress-bar">
+              <div id="uploadProgressBar" class="upload-progress-bar-inner"></div>
+            </div>
+            <div id="uploadStepText" class="upload-step-text">尚未开始</div>
+          </div>
+        </div>
+        <pre id="uploadResult" class="raw upload-result"></pre>
+        <div class="docs-panel">
+          <div class="docs-title">已入库文档</div>
+          <div id="docsList" class="docs-list"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="/web/app.js"></script>
+</body>
+</html>

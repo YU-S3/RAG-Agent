@@ -1,0 +1,15 @@
+.env
+
+.conda/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+eval/audit_events.jsonl
+eval/trace_events.jsonl
+eval/memory/sessions.json
+eval/rag/chunks.jsonl
+eval/reports/latest_eval_report.json
+eval/checkpoints/latest.json

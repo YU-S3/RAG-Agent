@@ -1,0 +1,3 @@
+{"id":"case-1","domain":"default","task":"生成三步测试计划","expected_contains":"summary"}
+{"id":"case-2","domain":"default","task":"请给出执行要点","expected_contains":"summary"}
+{"id":"case-3","domain":"default","task":"输出风险提示","expected_contains":"summary"}

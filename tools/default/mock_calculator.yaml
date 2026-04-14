@@ -1,0 +1,12 @@
+name: mock_calculator
+impl: mock_calculator
+permission: readonly
+args_schema:
+  type: object
+  required:
+    - task
+  properties:
+    task:
+      type: string
+    plan:
+      type: string

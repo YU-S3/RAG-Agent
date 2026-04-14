@@ -1,0 +1,12 @@
+name: mock_search
+impl: mock_search
+permission: readonly
+args_schema:
+  type: object
+  required:
+    - task
+  properties:
+    task:
+      type: string
+    plan:
+      type: string

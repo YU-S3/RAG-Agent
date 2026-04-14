@@ -1,0 +1,55 @@
+name: eval
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+
+jobs:
+  eval:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Compile check
+        run: python -m compileall app tests eval
+      - name: Run unit checks
+        run: |
+          python -m tests.smoke_check
+          python -m tests.embedder_endpoint_check
+          python -m tests.local_llm_retry_check
+          python -m tests.debug_llm_last_check
+          python -m tests.quality_output_parse_check
+          python -m tests.rag_chunker_check
+          python -m tests.rag_file_parse_check
+          python -m tests.pdf_layout_order_check
+          python -m tests.rag_upload_list_check
+          python -m tests.rag_upload_task_progress_check
+          python -m tests.memory_vector_candidate_check
+          python -m tests.qdrant_vector_dim_routing_check
+          python -m tests.reranker_bge_fallback_check
+          python -m tests.reranker_hybrid_score_check
+          python -m tests.reranker_latency_guard_check
+          python -m tests.generate_stream_check
+          python -m tests.llm_empty_response_runtime_check
+          python -m tests.llm_degrade_runtime_check
+          python -m tests.tool_registry_check
+          python -m tests.llm_router_check
+          python -m tests.workflow_retry_check
+          python -m tests.quality_guard_check
+          python -m tests.security_guard_check
+          python -m tests.production_controls_check
+          python -m tests.security_api_check
+          python -m tests.rag_memory_check
+          python -m tests.web_mvp_check
+          python -m tests.cli_mvp_check
+      - name: Run eval
+        env:
+          EVAL_PASS_THRESHOLD: "1.0"
+        run: python eval/run_eval.py
