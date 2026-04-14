@@ -12,6 +12,8 @@ conda activate C:\Users\YCY\Desktop\AI_Agent\.conda\meta-agent
 python -m pip install -r requirements.txt
 ```
 
+- 依赖说明：`requirements.txt` 已包含 `hf-xet==1.4.3`，用于 Hugging Face Xet 加速下载，避免 CI 中出现 `hf_xet` 缺失提示。
+
 ## 2. 启动本地 LLM（Ollama）
 
 ```powershell

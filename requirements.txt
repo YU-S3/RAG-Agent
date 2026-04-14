@@ -15,3 +15,4 @@ pdfplumber==0.11.4
 sentence-transformers==3.1.1
 onnxruntime==1.20.1
 optimum==1.23.3
+hf-xet==1.4.3

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "type": "command",
   "entry": "plugins/sample_echo.py:main",
-  "command": ".\\.conda\\meta-agent\\python.exe plugins\\sample_echo.py {task}",
+  "command": "python plugins\\sample_echo.py {task}",
   "timeout_sec": 20,
   "permissions": ["readonly"],
   "description": "示例插件清单"
